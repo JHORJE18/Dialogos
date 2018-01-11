@@ -1,5 +1,6 @@
 package com.jhorje18.dialogos;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     DatePickerDialog dialogoFecha;
     TimePickerDialog dialogoHora;
+    AlertDialog.Builder dialogoColores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 mes = month;
                 año = year;
 
-                recargar();
+                txtFecha.setText("Fecha: " + dia + "/" + mes + "/" + año);
             }
         },0,0,0);
 
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 hora = hourOfDay;
                 minutos = minute;
 
-                recargar();
+                txtHora.setText("Hora: " + hora + ":" + minutos);
             }
         }, 00,00,false);
 
@@ -65,11 +67,12 @@ public class MainActivity extends AppCompatActivity {
                 dialogoFecha.show();
             }
         });
-    }
 
-    private void recargar() {
-        //Recargamos elementos
-        txtFecha.setText("Fecha: " + dia + "/" + mes + "/" + año);
-        txtHora.setText("Hora: " + hora + ":" + minutos);
+        btnhora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogoHora.show();
+            }
+        });
     }
 }
