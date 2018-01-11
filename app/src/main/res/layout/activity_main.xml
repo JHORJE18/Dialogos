@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="20dp"
     android:orientation="vertical"
+    android:configChanges="screenSize|orientation"
     tools:context="com.jhorje18.dialogos.MainActivity">
 
     <Button

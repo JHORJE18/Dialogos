@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -114,5 +115,34 @@ public class MainActivity extends AppCompatActivity {
                 dialogoColores.show();
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("dialogoFecha", dialogoFecha.isShowing());
+        outState.putBoolean("dialogoHora", dialogoHora.isShowing());
+
+        outState.putString("txtFecha",txtFecha.getText().toString());
+        outState.putString("txtHora",txtHora.getText().toString());
+        outState.putString("txtColor",txtColor.getText().toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        //Dialogos
+        if (savedInstanceState.getBoolean("dialogoFecha")){
+            dialogoFecha.show();
+        }
+        if (savedInstanceState.getBoolean("dialogoHora")){
+            dialogoHora.show();
+        }
+
+        //Textos
+        txtFecha.setText(savedInstanceState.getString("txtFecha"));
+        txtHora.setText(savedInstanceState.getString("txtHora"));
+        txtColor.setText(savedInstanceState.getString("txtColor"));
     }
 }
