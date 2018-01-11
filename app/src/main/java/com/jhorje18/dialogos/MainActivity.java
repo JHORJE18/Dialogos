@@ -1,21 +1,24 @@
 package com.jhorje18.dialogos;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 public class MainActivity extends AppCompatActivity {
 
     //Variables
-    int dia, mes, año;
+    int dia, mes, año, hora, minutos;
     Button btnFecha, btnhora, btnColor;
     TextView txtFecha, txtHora, txtColor;
 
     DatePickerDialog dialogoFecha;
+    TimePickerDialog dialogoHora;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +34,7 @@ public class MainActivity extends AppCompatActivity {
         txtColor = (TextView) findViewById(R.id.txtColor);
 
         //Fecha
-        dialogoFecha = new DatePickerDialog(this, 0);
-        dialogoFecha.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+        dialogoFecha = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 dia = dayOfMonth;
@@ -41,10 +43,20 @@ public class MainActivity extends AppCompatActivity {
 
                 recargar();
             }
-        });
+        },0,0,0);
+
 
         //Hora
-        
+        dialogoHora = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                //Al aceptar la hora
+                hora = hourOfDay;
+                minutos = minute;
+
+                recargar();
+            }
+        }, 00,00,false);
 
         //Botones
         btnFecha.setOnClickListener(new View.OnClickListener() {
@@ -58,5 +70,6 @@ public class MainActivity extends AppCompatActivity {
     private void recargar() {
         //Recargamos elementos
         txtFecha.setText("Fecha: " + dia + "/" + mes + "/" + año);
+        txtHora.setText("Hora: " + hora + ":" + minutos);
     }
 }
