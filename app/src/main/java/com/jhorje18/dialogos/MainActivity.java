@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,16 +47,23 @@ public class MainActivity extends AppCompatActivity {
         dialogoFecha = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                txtFecha.setText("Fecha: " + dayOfMonth + "/" + month + "/" + year);
+                txtFecha.setText("Fecha: " + dayOfMonth + "/" + (month+1) + "/" + year);
             }
-        },0,0,0);
+        },2018,1,1);
 
         //Hora
         dialogoHora = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 //Al aceptar la hora
-                txtHora.setText("Hora: " + hourOfDay + ":" + minute);
+                String minutosPantalla = "";
+                if (minute < 10){
+                    minutosPantalla = "0" + minute;
+                } else {
+                    minutosPantalla = "" + minute;
+                }
+
+                txtHora.setText("Hora: " + hourOfDay + ":" + minutosPantalla);
             }
         }, 00,00,false);
 
@@ -72,6 +80,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //Al seleccionar algun elemento
+                        switch (colors_array[which]){
+                            case "Azul":
+                                txtColor.setTextColor(getResources().getColor(R.color.azul));
+                                break;
+                            case "Verde":
+                                txtColor.setTextColor(getResources().getColor(R.color.verde));
+                                break;
+                            case "Rojo":
+                                txtColor.setTextColor(getResources().getColor(R.color.rojo));
+                                break;
+                        }
+
                         txtColor.setText("Color: " + colors_array[which]);
                     }
                 });
