@@ -67,19 +67,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 00,00,false);
 
-        //Añadimos colores
-        final String[] colors_array = new String[3];
-        colors_array[0] = "Azul";
-        colors_array[1] = "Verde";
-        colors_array[2] = "Rojo";
-
         //Colores
         dialogoColores = new AlertDialog.Builder(this);
         dialogoColores.setTitle("Selecciona un color")
-                .setItems(colors_array, new DialogInterface.OnClickListener() {
+                .setItems(R.array.colores, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //Al seleccionar algun elemento
+                        String[] colors_array = getResources().getStringArray(R.array.colores);
                         switch (colors_array[which]){
                             case "Azul":
                                 txtColor.setTextColor(getResources().getColor(R.color.azul));
