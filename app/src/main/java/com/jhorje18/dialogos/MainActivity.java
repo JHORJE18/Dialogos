@@ -3,13 +3,20 @@ package com.jhorje18.dialogos;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     int dia, mes, año, hora, minutos;
     Button btnFecha, btnhora, btnColor;
     TextView txtFecha, txtHora, txtColor;
+    String color;
 
     DatePickerDialog dialogoFecha;
     TimePickerDialog dialogoHora;
@@ -47,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
             }
         },0,0,0);
 
-
         //Hora
         dialogoHora = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -59,6 +66,26 @@ public class MainActivity extends AppCompatActivity {
                 txtHora.setText("Hora: " + hora + ":" + minutos);
             }
         }, 00,00,false);
+
+        //Añadimos colores
+        final String[] colors_array = new String[3];
+        colors_array[0] = "Azul";
+        colors_array[1] = "Verde";
+        colors_array[2] = "Rojo";
+
+        dialogoColores = new AlertDialog.Builder(this);
+        dialogoColores.setTitle("Selecciona un color")
+                .setItems(colors_array, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Al seleccionar algun elemento
+                        color = colors_array[which];
+
+                        txtColor.setText("Color: " + color);
+                    }
+                });
+        dialogoColores.create();
+
 
         //Botones
         btnFecha.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +99,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialogoHora.show();
+            }
+        });
+
+        btnColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogoColores.show();
             }
         });
     }
