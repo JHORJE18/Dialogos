@@ -21,11 +21,10 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     //Variables
-    int dia, mes, año, hora, minutos;
     Button btnFecha, btnhora, btnColor;
     TextView txtFecha, txtHora, txtColor;
-    String color;
 
+    //Dialogos
     DatePickerDialog dialogoFecha;
     TimePickerDialog dialogoHora;
     AlertDialog.Builder dialogoColores;
@@ -47,11 +46,7 @@ public class MainActivity extends AppCompatActivity {
         dialogoFecha = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                dia = dayOfMonth;
-                mes = month;
-                año = year;
-
-                txtFecha.setText("Fecha: " + dia + "/" + mes + "/" + año);
+                txtFecha.setText("Fecha: " + dayOfMonth + "/" + month + "/" + year);
             }
         },0,0,0);
 
@@ -60,10 +55,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 //Al aceptar la hora
-                hora = hourOfDay;
-                minutos = minute;
-
-                txtHora.setText("Hora: " + hora + ":" + minutos);
+                txtHora.setText("Hora: " + hourOfDay + ":" + minute);
             }
         }, 00,00,false);
 
@@ -73,15 +65,14 @@ public class MainActivity extends AppCompatActivity {
         colors_array[1] = "Verde";
         colors_array[2] = "Rojo";
 
+        //Colores
         dialogoColores = new AlertDialog.Builder(this);
         dialogoColores.setTitle("Selecciona un color")
                 .setItems(colors_array, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //Al seleccionar algun elemento
-                        color = colors_array[which];
-
-                        txtColor.setText("Color: " + color);
+                        txtColor.setText("Color: " + colors_array[which]);
                     }
                 });
         dialogoColores.create();
