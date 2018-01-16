@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     //Variables
     Button btnFecha, btnhora, btnColor;
     TextView txtFecha, txtHora, txtColor;
+    Boolean coloresVisible;
 
     //Dialogos
     DatePickerDialog dialogoFecha;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         }, 00,00,false);
 
         //Colores
+        coloresVisible = false;
         dialogoColores = new AlertDialog.Builder(this);
         dialogoColores.setTitle("Selecciona un color")
                 .setItems(R.array.colores, new DialogInterface.OnClickListener() {
@@ -76,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         //Al seleccionar algun elemento
                         String[] colors_array = getResources().getStringArray(R.array.colores);
+                        coloresVisible = false;
                         switch (colors_array[which]){
                             case "Azul":
                                 txtColor.setTextColor(getResources().getColor(R.color.azul));
@@ -90,7 +93,8 @@ public class MainActivity extends AppCompatActivity {
 
                         txtColor.setText("Color: " + colors_array[which]);
                     }
-                });
+                })
+                .setCancelable(false);
         dialogoColores.create();
 
 
@@ -112,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         btnColor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                coloresVisible = true;
                 dialogoColores.show();
             }
         });
@@ -122,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putBoolean("dialogoFecha", dialogoFecha.isShowing());
         outState.putBoolean("dialogoHora", dialogoHora.isShowing());
+        outState.putBoolean("dialogoColores", coloresVisible);
 
         outState.putString("txtFecha",txtFecha.getText().toString());
         outState.putString("txtHora",txtHora.getText().toString());
@@ -138,6 +144,9 @@ public class MainActivity extends AppCompatActivity {
         }
         if (savedInstanceState.getBoolean("dialogoHora")){
             dialogoHora.show();
+        }
+        if (savedInstanceState.getBoolean("dialogoColores")){
+            dialogoColores.show();
         }
 
         //Textos
